@@ -3,15 +3,16 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Mount&amp;Blade Bitmap Font Converter &mdash; From Angelcode's BMFont format</title>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/zepto/1.0/zepto.min.js"></script>
 </head>
 <style>
     html,body{background-color:#333;color:#999;font-family:"bell mt",serif;margin:0;padding:0; -moz-user-select: none;-khtml-user-select: none;-webkit-user-select: none;-ms-user-select: none;user-select: none; cursor:default;}
-    textarea{width:100%;border:none;font-family:monospace;font-size:.85em;border-bottom:3px solid gray;}
+    textarea{width:100%;border:none;font-family:monospace;font-size:.85em;border-bottom:3px solid gray;box-sizing: border-box;}
     hr{border:3px double #C9B0B0;}
     h1,h2{color:#eee; font-family:"bell mt",serif; font-style:italic; display:inline-block;font-weight:400;}
     h1{color:#eee; text-shadow:2px 2px #766;}
     h2{text-shadow: 1px 1px #000;color: #C9B0B0;}
-    a{color:indianred;text-decoration:none;text-decoration:none;}
+    a{color:indianred;text-decoration:none;}
 </style>
 <body>
 	<h1>Hello! &mdash;</h1>
@@ -57,6 +58,7 @@
     
     var srcxml;
     var dstxml = document.implementation.createDocument(null, null, null);
+    var srcinfo;
     
     src.onchange=function(e){
         srcxml = parseXML(src.value);
@@ -64,7 +66,20 @@
         
         dstxml = srcxml;
         
-        dst.value = stringifyXML(dstxml);
+        var character = "<a>";
+        
+        
+        srcinfo=srcxml.getElementsByTagName("info")[0];
+        srcommon=srcxml.getElementsByTagName("common")[0];
+        
+        dst.value = '<?xml version="1.0" encoding="UTF-8" ?>\n'
+                  + '<FontData width="'+srcommon.attributes["scaleW"].value+'" height="'+srcommon.attributes["scaleH"].value+'" padding="'+srcinfo.attributes["padding"].value.split(',')[0]*2+'" font_size="'+srcommon.attributes["base"].value+'" font_scale="100" line_spacing="'+srcommon.attributes["lineHeight"].value+'">\n'
+                  + '<FontDetails> \n'
+                  +  character  + '\n'
+                  + '</FontDetails>\n'
+                  + '</FontData>';
+
+        //dst.value = stringifyXML(dstxml);
     };
 </script>
 </html>
