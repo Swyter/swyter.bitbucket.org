@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<meta charset="UTF-8">
+	<title>Mount&amp;Blade Bitmap Font Converter &mdash; From Anglecode's BMFont</title>
+</head>
+<style>
+    body{background-color:#333;color:#999;font-family:sans-serif;}
+</style>
+<body>
+	<h1>Hello!</h1>
+	<label for="src">Paste your Angelcode's BMFont XML output in here:</label><br/>
+	<textarea id="src" cols="30" rows="10"></textarea>
+	
+	<hr/>
+	
+	<label for="dst">This is your <code>font_data.xml</code>:</label><br/>
+	<textarea id="dst" cols="30" rows="10" placeholder="hi there!"></textarea>
+</body>
+<script>
+    // As seen on: https://github.com/jquery/jquery/blob/master/src/ajax/parseXML.js
+    var parseXML = function( data ) {
+        var xml, tmp;
+        if ( !data || typeof data !== "string" ) {
+                return null;
+        }
+
+        // Support: IE9
+        try {
+                tmp = new DOMParser();
+                xml = tmp.parseFromString( data, "text/xml" );
+        } catch ( e ) {
+                xml = undefined;
+        }
+
+        if ( !xml || xml.getElementsByTagName( "parsererror" ).length ) {
+                console.error( "Invalid XML: " + data );
+        }
+        return xml;
+    };
+    
+    var stringifyXML = function( DOM ) {
+        var tmp = new XMLSerializer();
+        return tmp.serializeToString( DOM );
+    }
+    
+    var src=document.querySelector("#src");
+    var dst=document.querySelector("#dst");
+    
+    src.onchange=function(e){
+        console.log(e);
+        var lol = parseXML( src.value);//.replace(/(\r\n|\n|\r)/gm,"") );
+        console.log(lol);
+        dst.value = stringifyXML(lol);
+        //console.log(dst.value);
+        
+        //return e;
+    }
+
+    
+    //app=document;
+    //$=function(a){return app.getElementById(a)};
+    
+    //parseXml($("src").innerText);
+</script>
+</html>
