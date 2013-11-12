@@ -16,6 +16,7 @@
 <body>
 	<h1>Hello! &mdash;</h1>
 	<h2>This is a Mount&amp;Blade converter from Angelcode's <a href=http://www.angelcode.com/products/bmfont/>BMFont format</a>.</h2></br>
+
 	<label for="src">Paste your Angelcode's BMFont XML output in here:</label><br/>
 	<textarea id="src" cols="30" rows="10" placeholder="paste here!"></textarea>
 	
@@ -49,16 +50,21 @@
     var stringifyXML = function( DOM ) {
         var tmp = new XMLSerializer();
         return tmp.serializeToString( DOM );
-    }
+    };
     
     var src=document.querySelector("#src");
     var dst=document.querySelector("#dst");
     
+    var srcxml;
+    var dstxml = document.implementation.createDocument(null, null, null);
+    
     src.onchange=function(e){
-        console.log(e);
-        var lol = parseXML(src.value);
-        console.log(lol);
-        dst.value = stringifyXML(lol);
+        srcxml = parseXML(src.value);
+        console.log(srcxml);
+        
+        dstxml = srcxml;
+        
+        dst.value = stringifyXML(dstxml);
     };
 </script>
 </html>
