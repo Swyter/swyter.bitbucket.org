@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Mount&amp;Blade Bitmap Font Converter &mdash; From Angelcode's BMFont format</title>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/zepto/1.0/zepto.min.js"></script>
+	<!--script src="//cdnjs.cloudflare.com/ajax/libs/zepto/1.0/zepto.min.js"></script -->
 </head>
 <style>
     html,body{background-color:#333;color:#999;font-family:"bell mt",serif;margin:0;padding:0; -moz-user-select: none;-khtml-user-select: none;-webkit-user-select: none;-ms-user-select: none;user-select: none; cursor:default;}
@@ -64,10 +64,9 @@
         srcxml = parseXML(src.value);
         console.log(srcxml);
         
-        dstxml = srcxml;
+        //dstxml = srcxml;
         
-        var character = "";
-        
+        var character = "    <!-- created by the client-side js BMFont converter -- courtesy of swyter -->\n";
         var char = srcxml.getElementsByTagName("char");
         
         for(obj in char)
@@ -85,13 +84,14 @@
                 var preshift    =    char[obj].attributes["xoffset"].value;
                 var yadjust     =    char[obj].attributes["yoffset"].value;
                 var postshift   =    char[obj].attributes["xadvance"].value;
-                character += '\t<character code="'+char_code+'" page="'+page+'" u="'+u+'" v="'+v+'" w="'+w+'" h="'+h+'" preshift="'+preshift+'" yadjust="'+yadjust+'" postshift="'+postshift+'" />\n';
+                
+                character += '    <character code="'+char_code+'" page="'+page+'" u="'+u+'" v="'+v+'" w="'+w+'" h="'+h+'" preshift="'+preshift+'" yadjust="'+yadjust+'" postshift="'+postshift+'" />\n';
             }
         }
         
         
-        srcinfo=srcxml.getElementsByTagName("info")[0];
-        srcommon=srcxml.getElementsByTagName("common")[0];
+        var srcinfo=srcxml.getElementsByTagName("info")[0];
+        var srcommon=srcxml.getElementsByTagName("common")[0];
         
         dst.value = '<?xml version="1.0" encoding="UTF-8" ?>\n'
                   + '<FontData width="'+srcommon.attributes["scaleW"].value+'" height="'+srcommon.attributes["scaleH"].value+'" padding="'+srcinfo.attributes["padding"].value.split(',')[0]*2+'" font_size="'+srcommon.attributes["base"].value+'" font_scale="100" line_spacing="'+srcommon.attributes["lineHeight"].value+'">\n'
