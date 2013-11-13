@@ -66,7 +66,7 @@
         
         //dstxml = srcxml;
         
-        var character = "    <!-- created by the client-side js BMFont converter -- courtesy of swyter -->\n";
+        var character = "";
         var char = srcxml.getElementsByTagName("char");
         
         for(obj in char)
@@ -79,11 +79,11 @@
                 var page        =    char[obj].attributes["page"].value;
                 var u           =    char[obj].attributes["x"].value;
                 var v           =    char[obj].attributes["y"].value;
-                var w           =   (char[obj].attributes["x"].value*1) + (char[obj].attributes["height"].value*1);
-                var h           =   (char[obj].attributes["y"].value*1) + (char[obj].attributes["width"].value*1);
-                var preshift    =    char[obj].attributes["xoffset"].value;
-                var yadjust     =    char[obj].attributes["yoffset"].value;
-                var postshift   =    char[obj].attributes["xadvance"].value;
+                var w           =   (char[obj].attributes["x"].value*1) + (char[obj].attributes["width"].value*1);
+                var h           =   (char[obj].attributes["y"].value*1) + (char[obj].attributes["height"].value*1);
+                var preshift    = 0;//   char[obj].attributes["xoffset"].value;
+                var yadjust     = 0;//   char[obj].attributes["yoffset"].value;
+                var postshift   = char[obj].attributes["width"].value;//   char[obj].attributes["xadvance"].value;
                 
                 character += '    <character code="'+char_code+'" page="'+page+'" u="'+u+'" v="'+v+'" w="'+w+'" h="'+h+'" preshift="'+preshift+'" yadjust="'+yadjust+'" postshift="'+postshift+'" />\n';
             }
@@ -95,6 +95,7 @@
         
         dst.value = '<?xml version="1.0" encoding="UTF-8" ?>\n'
                   + '<FontData width="'+srcommon.attributes["scaleW"].value+'" height="'+srcommon.attributes["scaleH"].value+'" padding="'+srcinfo.attributes["padding"].value.split(',')[0]*2+'" font_size="'+srcommon.attributes["base"].value+'" font_scale="100" line_spacing="'+srcommon.attributes["lineHeight"].value+'">\n'
+                  + '<!-- created by the client-side js BMFont converter -- courtesy of swyter -->\n'
                   + '<FontDetails> \n'
                   +  character
                   + '</FontDetails>\n'
