@@ -66,7 +66,17 @@
         
         dstxml = srcxml;
         
-        var character = "<a>";
+        var character = "";
+        
+        var char = srcxml.getElementsByTagName("char");
+        
+        for(obj in char)
+        {
+            if (!obj.hasOwnProperty(obj)) {
+                console.log(char[obj]);
+                character += '\t<character code="1613" page="0" u="239" v="994" w="263" h="1016" preshift="0" yadjust="-1" postshift="14" />\n';
+            }
+        }
         
         
         srcinfo=srcxml.getElementsByTagName("info")[0];
@@ -75,7 +85,7 @@
         dst.value = '<?xml version="1.0" encoding="UTF-8" ?>\n'
                   + '<FontData width="'+srcommon.attributes["scaleW"].value+'" height="'+srcommon.attributes["scaleH"].value+'" padding="'+srcinfo.attributes["padding"].value.split(',')[0]*2+'" font_size="'+srcommon.attributes["base"].value+'" font_scale="100" line_spacing="'+srcommon.attributes["lineHeight"].value+'">\n'
                   + '<FontDetails> \n'
-                  +  character  + '\n'
+                  +  character
                   + '</FontDetails>\n'
                   + '</FontData>';
 
