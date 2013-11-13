@@ -72,9 +72,20 @@
         
         for(obj in char)
         {
-            if (!obj.hasOwnProperty(obj)) {
-                console.log(char[obj]);
-                character += '\t<character code="1613" page="0" u="239" v="994" w="263" h="1016" preshift="0" yadjust="-1" postshift="14" />\n';
+            console.log(obj,typeof(char[obj]),char[obj]);
+            
+            if ( typeof(char[obj])=="object" )
+            {  // A bit clumsy, but works... Keeping the format, order and indentation is important
+                var char_code   =    char[obj].attributes["id"].value;
+                var page        =    char[obj].attributes["page"].value;
+                var u           =    char[obj].attributes["x"].value;
+                var v           =    char[obj].attributes["y"].value;
+                var w           =   (char[obj].attributes["x"].value*1) + (char[obj].attributes["height"].value*1);
+                var h           =   (char[obj].attributes["y"].value*1) + (char[obj].attributes["width"].value*1);
+                var preshift    =    char[obj].attributes["xoffset"].value;
+                var yadjust     =    char[obj].attributes["yoffset"].value;
+                var postshift   =    char[obj].attributes["xadvance"].value;
+                character += '\t<character code="'+char_code+'" page="'+page+'" u="'+u+'" v="'+v+'" w="'+w+'" h="'+h+'" preshift="'+preshift+'" yadjust="'+yadjust+'" postshift="'+postshift+'" />\n';
             }
         }
         
