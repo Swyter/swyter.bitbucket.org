@@ -1,0 +1,20 @@
+Play Tutorial
+-------------
+
+l  code  yoff  status
+_  ____  ____  ______
+P  80 -- 11 -- bad
+l 108 -- 10 -- bad
+a  97 -- 29 -- ok
+y 121 -- 29 -- ok 
+
+T  84 -- 11 -- bad
+u 117 -- 37 -- ok 
+t 116 -- 19 -- bad
+o 111 -- 29 -- ok 
+r 114 -- 29 -- ok 
+i 105 -- 10 -- bad
+a  97 -- 29 -- ok 
+l 108 -- 10 -- bad
+
+(-yof) + ( (common.base) - (common.spacing[0]+[1]) )

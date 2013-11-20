@@ -2,17 +2,18 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+	<link rel="shortcut icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAG0lEQVR42mNgYGD4j4YhBBQwM6DJCjMgMcAYAHO9CUfTfaziAAAAAElFTkSuQmCC"/>
 	<title>Mount&amp;Blade Bitmap Font Converter &mdash; From Angelcode's BMFont format</title>
 	<!--script src="//cdnjs.cloudflare.com/ajax/libs/zepto/1.0/zepto.min.js"></script -->
 </head>
 <style>
-    html,body{background-color:#333;color:#999;font-family:"bell mt",serif;margin:0;padding:0; -moz-user-select: none;-khtml-user-select: none;-webkit-user-select: none;-ms-user-select: none;user-select: none; cursor:default;}
-    textarea{width:100%;border:none;font-family:monospace;font-size:.85em;border-bottom:3px solid gray;box-sizing: border-box;}
-    hr{border:3px double #C9B0B0;}
-    h1,h2{color:#eee; font-family:"bell mt",serif; font-style:italic; display:inline-block;font-weight:400;}
-    h1{color:#eee; text-shadow:2px 2px #766;}
-    h2{text-shadow: 1px 1px #000;color: #C9B0B0;}
-    a{color:indianred;text-decoration:none;}
+    html,body{background-color:#333;color:#998d8d;font-family:"bell mt",serif;margin:0;padding:0; -moz-user-select: none;-khtml-user-select: none;-webkit-user-select: none;-ms-user-select: none;user-select: none; cursor:default;}
+     textarea{width:100%;border:none;font-family:monospace;font-size:.85em;border-bottom:3px solid gray;box-sizing: border-box;}
+           hr{border:3px double #C9B0B0;}
+        h1,h2{color:#eee; font-family:"bell mt",serif; font-style:italic; display:inline-block;font-weight:400;}
+           h1{text-shadow: 2px 2px #766;}
+           h2{text-shadow: 1px 1px #000;color: #C9B0B0;}
+            a{color:indianred;text-decoration:none;}
 </style>
 <body>
 	<h1>Hello! &mdash;</h1>
@@ -68,6 +69,8 @@
         
         var character = "";
         var char = srcxml.getElementsByTagName("char");
+        var srcommon=srcxml.getElementsByTagName("info")[0];
+        var generic_y=srcxml.getElementsByTagName("char[id=32]")[0];
         
         for(obj in char)
         {
@@ -81,9 +84,18 @@
                 var v           =    char[obj].attributes["y"].value;
                 var w           =   (char[obj].attributes["x"].value*1) + (char[obj].attributes["width"].value*1);
                 var h           =   (char[obj].attributes["y"].value*1) + (char[obj].attributes["height"].value*1);
-                var preshift    = 0;//   char[obj].attributes["xoffset"].value;
-                var yadjust     = 0;//   char[obj].attributes["yoffset"].value;
-                var postshift   = char[obj].attributes["width"].value;//   char[obj].attributes["xadvance"].value;
+                var preshift    =    char[obj].attributes["xoffset"].value;
+                
+                var hei         =  (+char[obj].attributes["height"].value);
+                var yof         =  (+char[obj].attributes["yoffset"].value);
+                
+                var yadjust = (-yof) + (65-4);
+                
+             //   var yadjust     =  (+char[0].attributes["yoffset"].value) + (+char[0].attributes["height"].value);//(5 + 20);//+(+srcommon.attributes["size"].value); //yof;//yof-(yof/2);
+                
+            //  var yadjust     =   (char[obj].attributes["height"].value*1);
+            //      yadjust    +=   ((char[obj].attributes["yoffset"].value*-1)-(char[obj].attributes["height"].value*1));
+                var postshift   =    char[obj].attributes["xadvance"].value;
                 
                 character += '    <character code="'+char_code+'" page="'+page+'" u="'+u+'" v="'+v+'" w="'+w+'" h="'+h+'" preshift="'+preshift+'" yadjust="'+yadjust+'" postshift="'+postshift+'" />\n';
             }
