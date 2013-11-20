@@ -22,6 +22,8 @@
 	<label for="src">Paste your Angelcode's BMFont XML output in here:</label><br/>
 	<textarea id="src" cols="30" rows="10" placeholder="paste here!"></textarea>
 	
+	<label><em><strong>Optionally:</strong></em> Tweak the inner letter-to-letter spacing <input id="intrspc_adj" value="0"></label>
+	<label>and vertical offset <input id="vertical_adj" value="0">.</label>
 	<hr/>
 	
 	<label for="dst">This is your <code>font_data.xml</code>:</label><br/>
@@ -56,12 +58,14 @@
     
     var src=document.querySelector("#src");
     var dst=document.querySelector("#dst");
+    var int=document.querySelector("#intrspc_adj");
+    var ver=document.querySelector("#vertical_adj");
     
     var srcxml;
     var dstxml = document.implementation.createDocument(null, null, null);
     var srcinfo;
     
-    src.onchange=function(e){
+    src.onchange = int.onchange = ver.onchange = function(e){
         srcxml = parseXML(src.value);
         console.log(srcxml);
         
@@ -95,7 +99,7 @@
                 
                 var postshift   =    char[obj].attributes["xadvance"].value;
                 
-                character += '    <character code="'+char_code+'" page="'+page+'" u="'+u+'" v="'+v+'" w="'+w+'" h="'+h+'" preshift="'+preshift+'" yadjust="'+yadjust+'" postshift="'+postshift+'" />\n';
+                character += '    <character code="'+char_code+'" page="'+page+'" u="'+u+'" v="'+v+'" w="'+w+'" h="'+h+'" preshift="'+preshift+'" yadjust="'+(yadjust+(+ver.value))+'" postshift="'+(postshift+(+int.value))+'" />\n';
             }
         }
         
