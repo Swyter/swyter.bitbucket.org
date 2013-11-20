@@ -69,8 +69,9 @@
         
         var character = "";
         var char = srcxml.getElementsByTagName("char");
-        var srcommon=srcxml.getElementsByTagName("info")[0];
-        var generic_y=srcxml.getElementsByTagName("char[id=32]")[0];
+        
+        var srcinfo=srcxml.getElementsByTagName("info")[0];
+        var srcommon=srcxml.getElementsByTagName("common")[0];
         
         for(obj in char)
         {
@@ -86,24 +87,17 @@
                 var h           =   (char[obj].attributes["y"].value*1) + (char[obj].attributes["height"].value*1);
                 var preshift    =    char[obj].attributes["xoffset"].value;
                 
-                var hei         =  (+char[obj].attributes["height"].value);
-                var yof         =  (+char[obj].attributes["yoffset"].value);
+                var base        =  (+srcommon.attributes["base"].value);
+                var spac        =  (+srcinfo.attributes["spacing"].value.split(',')[0]*2)
+                var yoff        =  (+char[obj].attributes["yoffset"].value);
                 
-                var yadjust = (-yof) + (65-4);
+                var yadjust = (-yoff) + (base-spac);
                 
-             //   var yadjust     =  (+char[0].attributes["yoffset"].value) + (+char[0].attributes["height"].value);//(5 + 20);//+(+srcommon.attributes["size"].value); //yof;//yof-(yof/2);
-                
-            //  var yadjust     =   (char[obj].attributes["height"].value*1);
-            //      yadjust    +=   ((char[obj].attributes["yoffset"].value*-1)-(char[obj].attributes["height"].value*1));
                 var postshift   =    char[obj].attributes["xadvance"].value;
                 
                 character += '    <character code="'+char_code+'" page="'+page+'" u="'+u+'" v="'+v+'" w="'+w+'" h="'+h+'" preshift="'+preshift+'" yadjust="'+yadjust+'" postshift="'+postshift+'" />\n';
             }
         }
-        
-        
-        var srcinfo=srcxml.getElementsByTagName("info")[0];
-        var srcommon=srcxml.getElementsByTagName("common")[0];
         
         dst.value = '<?xml version="1.0" encoding="UTF-8" ?>\n'
                   + '<FontData width="'+srcommon.attributes["scaleW"].value+'" height="'+srcommon.attributes["scaleH"].value+'" padding="'+srcinfo.attributes["padding"].value.split(',')[0]*2+'" font_size="'+srcommon.attributes["base"].value+'" font_scale="100" line_spacing="'+srcommon.attributes["lineHeight"].value+'">\n'
