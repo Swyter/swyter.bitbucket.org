@@ -14,6 +14,7 @@
            h1{text-shadow: 2px 2px #766;}
            h2{text-shadow: 1px 1px #000;color: #C9B0B0;}
             a{color:indianred;text-decoration:none;}
+        input{border:none;font-family:monospace;font-size:.85em;border-bottom:3px solid gray;box-sizing: border-box;}
 </style>
 <body>
 	<h1>Hello! &mdash;</h1>
@@ -22,12 +23,12 @@
 	<label for="src">Paste your Angelcode's BMFont XML output in here:</label><br/>
 	<textarea id="src" cols="30" rows="10" placeholder="paste here!"></textarea>
 	
-	<label><em><strong>Optionally:</strong></em> Tweak the inner letter-to-letter spacing <input id="intrspc_adj" value="0"></label>
-	<label>and vertical offset <input id="vertical_adj" value="0">.</label>
+	<label><em><strong>Optionally:</strong></em> Tweak the inner letter-to-letter spacing <input id="intrspc_adj" value="0" type=number></label>
+	<label>and vertical offset <input id="vertical_adj" value="0" type=number>.</label>
 	<hr/>
 	
 	<label for="dst">This is your <code>font_data.xml</code>:</label><br/>
-	<textarea id="dst" cols="30" rows="10" placeholder="hi there!"></textarea>
+	<textarea id="dst" cols="30" rows="10" placeholder="hi there! every time you paste a XML file, tweak a field or move your ears this thing will output your result, ready to copy, ready to enjoy!" readonly></textarea>
 </body>
 <script>
     // As seen on: https://github.com/jquery/jquery/blob/master/src/ajax/parseXML.js
@@ -99,7 +100,7 @@
                 
                 var postshift   =    char[obj].attributes["xadvance"].value;
                 
-                character += '    <character code="'+char_code+'" page="'+page+'" u="'+u+'" v="'+v+'" w="'+w+'" h="'+h+'" preshift="'+preshift+'" yadjust="'+(yadjust+(+ver.value))+'" postshift="'+(postshift+(+int.value))+'" />\n';
+                character += '    <character code="'+char_code+'" page="'+page+'" u="'+u+'" v="'+v+'" w="'+w+'" h="'+h+'" preshift="'+preshift+'" yadjust="'+(yadjust+(ver.value*1))+'" postshift="'+(postshift+(int.value*1))+'" />\n';
             }
         }
         
