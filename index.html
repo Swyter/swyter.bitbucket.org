@@ -96,9 +96,9 @@
                 var spac        =  (+srcinfo.attributes["spacing"].value.split(',')[0]*2)
                 var yoff        =  (+char[obj].attributes["yoffset"].value);
                 
-                var yadjust = (-yoff) + (base-spac);
+                var yadjust     =  (-yoff) + (base-spac); // <- The heart of the swarm :)
                 
-                var postshift   =    char[obj].attributes["xadvance"].value;
+                var postshift   =  (+char[obj].attributes["xadvance"].value);
                 
                 character += '    <character code="'+char_code+'" page="'+page+'" u="'+u+'" v="'+v+'" w="'+w+'" h="'+h+'" preshift="'+preshift+'" yadjust="'+(yadjust+(ver.value*1))+'" postshift="'+(postshift+(int.value*1))+'" />\n';
             }
